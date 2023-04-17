@@ -37,11 +37,12 @@ public class MemberService {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
 
+	//특정 member
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
 
-
+	//member전체
 	public List<Member> getMembers() {
 		return memberRepository.getMembers();
 	}
