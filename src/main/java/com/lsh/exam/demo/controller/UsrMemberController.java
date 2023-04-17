@@ -20,11 +20,11 @@ public class UsrMemberController {
 	}
 
 	// 액션 메서드 시작
-	@RequestMapping("/usr/member/dojoin")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Object dojoin(String loginId, String loginPw,String name, String nickname, String cellphoneNo, String email) {
+	public Object doJoin(String loginId, String loginPw,String name, String nickname, String cellphoneNo, String email) {
 	
-		//if(loginId == null || loginId.trim().length()==0) loginid가 널 또는 앞뒤공백 제거후 0이거나
+		//if(loginId == null || loginId.trim().length()==0) loginId가 널 또는 앞뒤공백 제거후 0이거나
 		if ( Ut.empty(loginId)) {
 			return "loginId(을)를 입력해 주세요.";
 		}
@@ -54,6 +54,11 @@ public class UsrMemberController {
 		if (id == -1) {
 			
 			return "해당 로그인 아이디는 이미 사용중 입니다.";
+		}
+		
+		if (id == -2) {
+			
+			return "해당 이름과 이메일은 이미 사용중 입니다.";
 		}
 		
 		Member member = memberService.getMemberById(id);
