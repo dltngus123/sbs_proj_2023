@@ -34,10 +34,15 @@
 	</delete>
 	
 	<update id="modifyArticle">
-		UPDATE 
-		article SET 
-		title = #{title}, 
-		`body` = #{body}, 
+		UPDATE article 
+		<set>
+			<if test="title != null and title != ''">
+				title = #{title}
+			</if>
+			<if test ="body != null and body != ''">
+				`body` = #{body}
+			</if>
+		</set> 
 		updateDate = NOW() 
 		WHERE id = #{id}
 	</update>
