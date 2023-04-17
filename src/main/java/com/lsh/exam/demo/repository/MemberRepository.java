@@ -1,8 +1,13 @@
 package com.lsh.exam.demo.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import com.lsh.exam.demo.vo.Member;
 
 @Mapper
 public interface MemberRepository {
@@ -19,6 +24,24 @@ public interface MemberRepository {
 			email = #{email};
 			""")
 	public void join(@Param("loginId")String loginId,@Param("loginPw") String loginPw,@Param("name") String name, @Param("nickname")String nickname, @Param("email")String email, @Param("cellphoneNo")String cellphoneNo);
+	
+	@Select("""
+			SELECT * 
+			FROM `member`
+			ORDER BY 
+			id DESC
+			""")
+	public List<Member> getMembers();
+
+	@Select("SELECT LAST_INSERT_ID()")
+	public int getLastInsertId();
+
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.id = #{id}
+			""")
+	public Member getMemberById(@Param("id")int id);
 	
 	
 
