@@ -16,12 +16,27 @@ public class MemberService {
 	}
 
 	public int join(String loginId, String loginPw, String name, String nickname, String email, String cellphoneNo) {
+		
+		//중복확인 oldmember 원래 있던 id
+		Member oldMember = getMemberByLoginId(loginId);
+		
+		if( oldMember != null) {
+			
+			return -1;
+		}
+		
 		memberRepository.join( loginId, loginPw, name, nickname,email, cellphoneNo);
 		
 		return memberRepository.getLastInsertId();
 		
 	}
 	
+	//중복방지
+	private Member getMemberByLoginId(String loginId) {
+		
+		return memberRepository.getMemberByLoginId(loginId);
+	}
+
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
