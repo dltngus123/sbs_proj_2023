@@ -30,6 +30,11 @@ public class ResultData {
 		return rd;
 	}
 	
+	public static ResultData newData(ResultData joinRd, Object newData) {
+		
+		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	}
+	
 	public boolean isSuccess() {
 		//S-로 시작하면 성공
 		return resultCode.startsWith("S-");
@@ -39,6 +44,8 @@ public class ResultData {
 		//F-로 시작하면 실패
 		return isSuccess() == false;
 	}
+
+
 
 	
 
