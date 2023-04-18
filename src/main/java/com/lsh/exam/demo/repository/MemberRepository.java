@@ -56,7 +56,7 @@ public interface MemberRepository {
 			SELECT *
 			FROM `member` AS M
 			WHERE M.name = #{name}
-			AND M.email = #{email}
+			OR M.email = #{email}
 			""")
 	public Member getMemberByNameAndEmail(@Param("name")String name,@Param("email") String email);
 	
