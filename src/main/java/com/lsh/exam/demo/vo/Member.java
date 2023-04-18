@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 public class Member {
 	
 	private int id;
+	private Date regDate;
+	private Date updateDate;
 	private String loginId;
 	private String loginPw;
 	private boolean delStatues;
@@ -23,8 +25,6 @@ public class Member {
 	private String email;
 	private String cellphoneNo;
 	private String authLevel;
-	private Date regDate;
-	private Date updateDate;
 	
 
 }
