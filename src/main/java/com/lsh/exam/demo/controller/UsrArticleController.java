@@ -12,6 +12,8 @@ import com.lsh.exam.demo.utill.Ut;
 import com.lsh.exam.demo.vo.Article;
 import com.lsh.exam.demo.vo.ResultData;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class UsrArticleController {
 	@Autowired
@@ -20,7 +22,21 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public ResultData<Article> doAdd(String title, String body) {
+	public ResultData<Article> doAdd(HttpSession httpSession, String title, String body) {
+		
+		boolean isLogined = false;
+		
+		int loginedMemberId = 0;
+		
+		if (httpSession.getAttribute("loginedMemberId") != null) {
+			
+			isLogined = true;
+			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+		}
+		
+		if ( isLogined == false) {
+			return ResultData.from("F-A","로그인 후 이용 해주세요.");
+		}
 		
 		//만약 title or body 입력을 안했을때
 		if(Ut.empty(title)) {
@@ -31,7 +47,7 @@ public class UsrArticleController {
 			return ResultData.from("F-2", "body을(를) 입력 해주세요.");
 		}
 		
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(loginedMemberId, title, body);
 		
 		int id = writeArticleRd.getData1();
 		
