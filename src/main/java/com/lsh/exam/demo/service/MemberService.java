@@ -45,7 +45,7 @@ public class MemberService {
 	}
 	
 	//loginId 중복방지
-	private Member getMemberByLoginId(String loginId) {
+	public Member getMemberByLoginId(String loginId) {
 		
 		return memberRepository.getMemberByLoginId(loginId);
 	}
