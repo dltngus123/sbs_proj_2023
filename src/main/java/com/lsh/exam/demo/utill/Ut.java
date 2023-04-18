@@ -21,7 +21,7 @@ public class Ut {
 	}
 
 	//몇개의 object가 들어올지몰라서 밑처럼 만들어주면 알아서 배열로 들어옴
-	public static Object f(String format, Object... args) {
+	public static String f(String format, Object... args) {
 		
 		return String.format(format, args);
 	}

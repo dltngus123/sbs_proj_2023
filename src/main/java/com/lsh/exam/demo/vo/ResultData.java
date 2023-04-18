@@ -16,6 +16,11 @@ public class ResultData {
 	//생성자 만들어서 객체 생성못하게?
 	private ResultData() {}
 	
+	public static ResultData from(String rsultCode, String msg) {
+		
+		return from(rsultCode, msg , null);
+	}
+	
 	public static ResultData from (String resultCode, String msg, Object data1) {
 		ResultData rd = new ResultData();
 		rd.resultCode = resultCode;
@@ -34,6 +39,10 @@ public class ResultData {
 		//F-로 시작하면 실패
 		return isSuccess() == false;
 	}
+
+	
+
+
 	
 	
 
