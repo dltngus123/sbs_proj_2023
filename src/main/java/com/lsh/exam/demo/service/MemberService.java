@@ -45,6 +45,7 @@ public class MemberService {
 		
 		return memberRepository.getMemberByLoginId(loginId);
 	}
+	
 	//email&name 중복방지
 	private Member getMemberByNameAndEmail(String name, String email) {
 		
