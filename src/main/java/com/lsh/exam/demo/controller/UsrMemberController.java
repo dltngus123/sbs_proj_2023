@@ -23,7 +23,7 @@ public class UsrMemberController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw,String name, String nickname, String cellphoneNo, String email) {
+	public ResultData<Member> doJoin(String loginId, String loginPw,String name, String nickname, String cellphoneNo, String email) {
 	
 		//if(loginId == null || loginId.trim().length()==0) loginId가 널 또는 앞뒤공백 제거후 0이거나
 		if ( Ut.empty(loginId)) {
@@ -51,13 +51,13 @@ public class UsrMemberController {
 		}
 		
 		//성공시S-1,회원가입 완료됨 MSG ,새로운 회원 번호 data1
-		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname,email,cellphoneNo);
+		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname,email,cellphoneNo);
 		
 		if (joinRd.isFail()) {
-			return joinRd;
+			return (ResultData)joinRd;
 		}
 		
-		Member member = memberService.getMemberById((int)joinRd.getData1());
+		Member member = memberService.getMemberById(joinRd.getData1());
 		
 		return ResultData.newData(joinRd, member);
 	}
