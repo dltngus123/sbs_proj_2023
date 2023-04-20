@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="pageTitle" value="게시물 리스트"/>
+<c:set var="pageTitle" value="게시물 상세"/>
 <%@include file="../common/head.jspf" %>
 
 <section class="mt-5">
@@ -51,6 +51,7 @@
 			<a class="btn-text-link"  onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;" href="../article/doDelete?id=${article.id }">게시물 삭제</a>
 		</c:if>
 	</div>
+    </div>
 </section>
 
 
