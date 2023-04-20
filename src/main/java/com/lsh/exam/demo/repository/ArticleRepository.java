@@ -12,10 +12,10 @@ public interface ArticleRepository {
 	
 	// select * from article where id = ?
 	//@Select("SELECT * FROM article WHERE id = #{id}")
-	public Article getArticle(@Param("id") int id);
+	public Article getForPrintArticle(@Param("id") int id);
 
 	//@Select("SELECT * FROM article ORDER BY id DESC")
-	public List<Article> getArticles();
+	public List<Article> getForPrintArticles();
 	
 	//@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body`= #{body}")
 	public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
