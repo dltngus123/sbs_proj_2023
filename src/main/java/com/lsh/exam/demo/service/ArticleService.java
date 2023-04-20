@@ -78,7 +78,7 @@ public class ArticleService {
 
    public ResultData actorCanModify(int actorId, Article article) {
       if ( article == null ) {
-         return ResultData.from("F-", "권한이 없습니다.");
+         return ResultData.from("F-1", "권한이 없습니다.");
       }
       
       if  ( article.getMemberId() != actorId) {
