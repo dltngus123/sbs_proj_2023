@@ -40,7 +40,7 @@ public class UsrArticleController {
 		int id = writeArticleRd.getData1();
 		
 		if (Ut.empty(replaceUri)) {
-			replaceUri = Ut.f("../article/detail?id=%d", id);
+			replaceUri = Ut.f("../article/list");
 		}
 		
 		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), replaceUri);
