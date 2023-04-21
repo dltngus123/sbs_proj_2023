@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lsh.exam.demo.service.ArticleService;
+import com.lsh.exam.demo.service.BoardService;
 import com.lsh.exam.demo.utill.Ut;
 import com.lsh.exam.demo.vo.Article;
+import com.lsh.exam.demo.vo.Board;
 import com.lsh.exam.demo.vo.ResultData;
 import com.lsh.exam.demo.vo.Rq;
 
@@ -18,8 +20,14 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class UsrArticleController {
-	@Autowired
+	
 	private ArticleService articleService;
+	private BoardService boardService;
+	
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService=articleService;
+		this.boardService=boardService;
+	}
 
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
@@ -52,10 +60,13 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
+		Board board = boardService.getBoardById(boardId);
 		Rq rq = (Rq)req.getAttribute("rq");
 		
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
+		
+		model.addAttribute("board", board);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
