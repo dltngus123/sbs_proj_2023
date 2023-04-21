@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="pageTitle" value="게시물 수정"/>
+<c:set var="pageTitle" value="게시물 작성"/>
 <%@include file="../common/head.jspf" %>
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-	    <form method="POST" action="../article/doModify">
+	    <form method="POST" action="../article/doWrite">
 	    	 <input type="hidden" name="id" value="${article.id }"/>
 			    <div class="table-box-type-1">
 			      <table>
@@ -15,20 +15,8 @@
 			      </colgroup>
 			        <tbody>
 			          <tr>
-			            <th>번호</th>
-			            <td>${article.id}</td>
-			          </tr>
-			          <tr>
-			            <th>작성날짜</th>
-			            <td>${article.getRegDateForPrint()}</td>
-			          </tr>
-			          <tr>
-			            <th>수정날짜</th>
-			            <td>${article.getUpdateDateForPrint()}</td>
-			          </tr>
-			          <tr>
 			            <th>작성자</th>
-			            <td>${article.extra_writerName}</td>
+			            <td>${rq.loginedMember.nickname}</td>
 			          </tr>
 			          <tr>
 			            <th>제목</th>
@@ -45,7 +33,7 @@
 			           <tr>
 			            <th>수정</th>
 			            <td>
-			              <input class="btn btn-primary" type="submit" value="수정"/>
+			              <input class="btn btn-primary" type="submit" value="작성"/>
 			              <button class="btn btn-outline btn-primary" type="button" onclick="history.back();">뒤로가기</button>
 			            </td>
 			          </tr>
@@ -53,13 +41,6 @@
 			      </table>
 			    </div>
 			
-			<div class="btns">
-				<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
-					<a  class="btn btn-link"  href="../article/modify?id=${article.id }">게시물 수정</a>
-				<c:if test="${article.extra_actorCanDelete}">
-					<a class="btn btn-link"  onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;" href="../article/doDelete?id=${article.id }">게시물 삭제</a>
-				</c:if>
-			</div>
 	    </form>
     </div>
 </section>
