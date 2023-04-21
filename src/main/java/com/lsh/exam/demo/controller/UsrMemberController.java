@@ -17,47 +17,46 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsrMemberController {
-	
 	private MemberService memberService;
 	
 	public UsrMemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
-
-	// 액션 메서드 시작
+	
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public ResultData<Member> doJoin(String loginId, String loginPw,String name, String nickname, String cellphoneNo, String email) {
-	
-		//if(loginId == null || loginId.trim().length()==0) loginId가 널 또는 앞뒤공백 제거후 0이거나
-		if ( Ut.empty(loginId)) {
-			return ResultData.from("F-1", "loginId(을)를 입력해 주세요.");
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email) {
+			
+		if ( Ut.empty(loginId) ) {
+			return ResultData.from("F-1", "loginId(을)를 입력해주세요.");
 		}
 		
-		if ( Ut.empty(loginPw)) {
-			return ResultData.from("F-2", "loginPw(을)를 입력해 주세요.");
+		if ( Ut.empty(loginPw) ) {
+			return ResultData.from("F-2", "loginPw(을)를 입력해주세요.");
 		}
 		
-		if ( Ut.empty(name)) {
-			return ResultData.from("F-3", "name(을)를 입력해 주세요.");
+		if ( Ut.empty(name) ) {
+			return ResultData.from("F-3", "name(을)를 입력해주세요.");
 		}
 		
-		if ( Ut.empty(nickname)) {
-			return  ResultData.from("F-4", "nickname(을)를 입력해 주세요.");
+		if ( Ut.empty(nickname) ) {
+			return ResultData.from("F-4", "nickname(을)를 입력해주세요.");
 		}
 		
-		if (Ut.empty(email)) {
-			return ResultData.from("F-5", "email(을)를 입력해 주세요.");
+		if ( Ut.empty(cellphoneNo) ) {
+			return ResultData.from("F-5", "cellphoneNo(을)를 입력해주세요.");
 		}
 		
-		if ( Ut.empty(cellphoneNo)) {
-			return ResultData.from("F-6", "cellphoneNo(을)를 입력해 주세요.");
+		if ( Ut.empty(email) ) {
+			return ResultData.from("F-6", "email(을)를 입력해주세요.");
 		}
 		
-		//성공시S-1,회원가입 완료됨 MSG ,새로운 회원 번호 data1
-		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname,email,cellphoneNo);
+		// S-1
+		// 회원가입이 완료되었습니다.
+		// 7
+		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 		
-		if (joinRd.isFail()) {
+		if ( joinRd.isFail() ) {
 			return (ResultData)joinRd;
 		}
 		
@@ -69,20 +68,19 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpServletRequest req) {
-		Rq rq =(Rq) req.getAttribute("rq");
+		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined()) {
-			return Ut.jsHistoryBack("이미 로그아웃 상태입니다.");
+		if ( !rq.isLogined() ) {
+			return Ut.jsHistoryBack("로그아웃 상태입니다.");
 		}
 		
 		rq.logout();
 		
-		return Ut.jsReplace("로그아웃 되었습니다.","/");
+		return Ut.jsReplace("로그아웃 되었습니다.", "/");
 	}
 	
 	@RequestMapping("/usr/member/login")
 	public String showLogin() {
-		
 		return "usr/member/login";
 	}
 	
@@ -91,26 +89,25 @@ public class UsrMemberController {
 	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
 		Rq rq = (Rq) req.getAttribute("rq");
 		
-		if (rq.isLogined()) {
-			return Ut.jsHistoryBack( "이미 로그인 되었습니다.");
-		}
-	
-		//if(loginId == null || loginId.trim().length()==0) loginId가 널 또는 앞뒤공백 제거후 0이거나
-		if ( Ut.empty(loginId)) {
-			return Ut.jsHistoryBack("loginId(을)를 입력해 주세요.");
+		if ( rq.isLogined() ) {
+			return Ut.jsHistoryBack("이미 로그인되었습니다.");
 		}
 		
-		if ( Ut.empty(loginPw)) {
-			return Ut.jsHistoryBack("loginPw(을)를 입력해 주세요.");
+		if ( Ut.empty(loginId) ) {
+			return Ut.jsHistoryBack("loginId(을)를 입력해주세요.");
+		}
+		
+		if ( Ut.empty(loginPw) ) {
+			return Ut.jsHistoryBack("loginPw(을)를 입력해주세요.");
 		}
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
-		if ( member == null) {
-			return Ut.jsHistoryBack("존재하지 않는 로그인아이디 입니다.");
+		if ( member == null ) {
+			return Ut.jsHistoryBack("존재하지 않은 로그인아이디 입니다.");
 		}
 		
-		if (member.getLoginPw().equals(loginPw) == false) {
+		if ( member.getLoginPw().equals(loginPw) == false ) {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
@@ -124,5 +121,4 @@ public class UsrMemberController {
 	public List<Member> getMembers() {
 		return memberService.getMembers();
 	}
-
 }

@@ -51,7 +51,7 @@ public class ArticleService {
 	   }
 	   
 	   if (article.getMemberId() != actorId ) {
-		   return ResultData.from("F-2", "권한이 없습니.");
+		   return ResultData.from("F-2", "권한이 없습니다.");
 	   }
 	   
 	   return ResultData.from("S-1", "게시물 삭제가 가능합니다.");
