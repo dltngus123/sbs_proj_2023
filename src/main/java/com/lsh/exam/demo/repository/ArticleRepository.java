@@ -15,7 +15,7 @@ public interface ArticleRepository {
 	public Article getForPrintArticle(@Param("id") int id);
 
 	//@Select("SELECT * FROM article ORDER BY id DESC")
-	public List<Article> getForPrintArticles();
+	public List<Article> getForPrintArticles(@Param("boardId") int boardId);
 	
 	//@Insert("INSERT INTO article SET regDate = NOW(), updateDate = NOW(), title = #{title}, `body`= #{body}")
 	public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
