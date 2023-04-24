@@ -66,13 +66,19 @@ public class UsrArticleController {
 			return rq.historyBackJsOnview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
 		}
 		
+		
+		//글 20개 1페이지에 10개 1,2페이지가 나옴
 		int articlesCount = articleService.getArticlesCount(boardId);
 		//페이지네이션 1페이지에 10개씩 보여준다
 		int itemsCountInAPage = 10;
+		int pagesCount = (int) Math.ceil((double) articlesCount / itemsCountInAPage);
 		
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsCountInAPage, page);
 		
 		model.addAttribute("board", board);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
