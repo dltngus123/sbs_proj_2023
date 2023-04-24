@@ -139,3 +139,14 @@ UPDATE article
   
   SELECT * FROM board WHERE id =1;
   SELECT * FROM board WHERE id=2;
+
+  /*
+  #게시물 개수 늘리기
+  insert into article
+  (regDate, updateDate, memberId, boardId, title, `body`)
+  select now(),now(),floor(rand()*2)+1,floor(rand()*2)+1,concat('제목_',rand()),concat'내용_',rand())
+  from article;
+ */
+ SELECT * FROM article;
+  
+  
