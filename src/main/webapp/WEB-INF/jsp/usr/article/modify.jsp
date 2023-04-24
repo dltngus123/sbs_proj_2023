@@ -28,7 +28,7 @@
 			          </tr>
 			          <tr>
 			            <th>작성자</th>
-			            <td>${article.extra_writerName}</td>
+			            <td>${article.extra__writerName}</td>
 			          </tr>
 			          <tr>
 			            <th>제목</th>
@@ -56,7 +56,7 @@
 			<div class="btns">
 				<button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
 					<a  class="btn btn-link"  href="../article/modify?id=${article.id }">게시물 수정</a>
-				<c:if test="${article.extra_actorCanDelete}">
+				<c:if test="${article.extra__actorCanDelete}">
 					<a class="btn btn-link"  onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;" href="../article/doDelete?id=${article.id }">게시물 삭제</a>
 				</c:if>
 			</div>
