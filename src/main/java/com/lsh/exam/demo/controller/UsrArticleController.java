@@ -2,7 +2,6 @@ package com.lsh.exam.demo.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,8 +60,12 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, int boardId) {
-		Board board = boardService.getBoardById(boardId);
 		Rq rq = (Rq)req.getAttribute("rq");
+		
+		Board board = boardService.getBoardById(boardId);
+		if (board == null) {
+			return rq.historyBackJsOnview(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
+		}
 		
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
 		
