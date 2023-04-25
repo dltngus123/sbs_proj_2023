@@ -148,5 +148,7 @@ UPDATE article
   from article;
  */
  SELECT * FROM article;
+
+  ALTER TABLE article ADD COLUMN hitcount INT(10) UNSIGNED NOT NULL DEFAULT 0;
   
   

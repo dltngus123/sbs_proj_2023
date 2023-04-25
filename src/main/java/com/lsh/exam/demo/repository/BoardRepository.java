@@ -9,11 +9,10 @@ import com.lsh.exam.demo.vo.Board;
 @Mapper
 public interface BoardRepository {
 	@Select("""
-			SELECT *
-			FROM board AS B
-			WHERE B.id = #{id}
-			AND B.delStatus =0
+			select *
+			from board as B
+			where B.id = #{id}
+			and B.delStatus = 0
 			""")
-	Board getBoardById(@Param("id")int id);
-
+	Board getBoardById(@Param("id") int id);
 }
