@@ -21,8 +21,8 @@
 	
 	<!-- 사이트 공통 CSS -->
 	<link rel="stylesheet" href="/resource/common.css" />
-	<!-- 사이트 공통 JS -->
-	<script src="resource/common.js" defer="defer"></script>
+	<!-- 사이트 공통 JS defer은 제일 나중에 실행하라고 하는거임 footer에 넣을때는 빼도됨-->
+	<script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
 	<header>
