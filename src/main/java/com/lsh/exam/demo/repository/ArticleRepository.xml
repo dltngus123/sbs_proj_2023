@@ -23,6 +23,23 @@
          <if test="boardId!=0">
             where A.boardId=#{boardId}
          </if>
+            <if test="searchKeyword != ''">
+      	 <choose>
+		    <when test="searchKeywordTypeCode == 'title'">
+		      and A.title like CONCAT('%', #{searchKeyword}, '%')
+		    </when>
+		    <when test="searchKeywordTypeCode == 'body'">
+		      and A.body like CONCAT('%', #{searchKeyword}, '%')
+		    </when>
+		    <otherwise>
+		    	and (
+		    		A.title like CONCAT('%', #{searchKeyword}, '%')
+		    		 or
+		    		A.body like CONCAT('%', #{searchKeyword}, '%')
+		    	)
+		    </otherwise>
+	  	</choose>
+      </if>
       
       ORDER BY id DESC
       
