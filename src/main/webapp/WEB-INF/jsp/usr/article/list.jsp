@@ -62,7 +62,7 @@
 	    <c:set var="pageMenuArmLen" value="4"/>
 	    <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}"/>
 	    <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}"/>
-	    <c:set var="pageBaseUri" value="?boardId=${boardID }"/>
+	    <c:set var="pageBaseUri" value="?boardId=${boardId }"/>
 	    <c:set var="pageBaseUri" value="${pageBaseUri}&searchKeyword=${param.searchKeyword }"/>
 	    <c:set var="pageBaseUri" value="${pageBaseUri}&searchKeywordTypeCode=${param.searchKeywordTypeCode }"/>
 	    
