@@ -31,5 +31,5 @@ public interface ArticleRepository {
 	//@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
 	
-	public int getArticlesCount(@Param("boardId")int boardId);
+	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 }
