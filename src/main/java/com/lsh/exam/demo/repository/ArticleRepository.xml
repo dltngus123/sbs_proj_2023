@@ -109,8 +109,20 @@
 		WHERE id = #{id}
 	</update>
 	
+	<update id="increaseGoodReactionPoint">
+		UPDATE article
+		SET goodReactionPoint = goodReactionPoint + 1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="increaseBadReactionPoint">
+		UPDATE article
+		SET badReactionPoint = badReactionPoint + 1
+		WHERE id = #{id}
+	</update>
+	
 	<select id="getArticleHitCount" resultType="int">
-		SELECT hitCount
+		SELECT article
 		FROM article
 		WHERE id = #{id}
 	</select>
