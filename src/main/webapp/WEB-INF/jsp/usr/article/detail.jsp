@@ -11,6 +11,14 @@ params.id = parseInt('${param.id}');
 
 <script>
 function ArticleDetail__increseHitCount() {
+	const localStorageKey = 'article__' + params.id + '__viewDone';
+	
+	if (localStorage.getItem(localStorageKey)) {
+		return;
+	}
+	
+	localStorage.setItem(localStorageKey, true);
+	
 	$.get(
 		'../article/doIncreaseHitCountRd', {
 			id : params.id,
@@ -20,11 +28,11 @@ function ArticleDetail__increseHitCount() {
 		}, 'json');
 }
 $(function() {
-	// 실전
+	// 실전코드
 	// ArticleDetail__increseHitCount();
 	
 	// 임시코드
-	setTimeout(ArticleDetail__increseHitCount, 3000);
+	setTimeout(ArticleDetail__increseHitCount, 300);
 })
 </script>
 
@@ -62,17 +70,17 @@ $(function() {
             <th>추천</th>
             <td>
             	<div class="flex items-center">
-            		<span class="btext-blue-700">${article.goodReactionPoint}</span>
+            		<span class="text-blue-700">${article.goodReactionPoint}</span>
             		<span>&nbsp;</span>
             		
             		<c:if test="${actorCanMakeReactionPoint}">
 	            		<button class="btn btn-xs btn-outline btn-primary">
-	            		좋아요 👍
+	            			좋아요 👍
 	            		</button>
 	            		<span>&nbsp;</span>
-	            		<button class="btn btn-xs btn-outline btn-secondary">
-	            		싫어요 👎
-	            		</button>
+						<button class="btn btn-xs btn-outline btn-secondary">
+							싫어요 👎
+						</button>
             		</c:if>
             	</div>
 			</td>
