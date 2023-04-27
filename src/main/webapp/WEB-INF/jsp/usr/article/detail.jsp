@@ -224,6 +224,7 @@ location.href= "http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1";
           <col width="100"/>
           <col width="100"/>
           <col width="50"/>
+          <col width="100"/>
           <col width="150"/>
           <col />
         </colgroup>
@@ -234,7 +235,8 @@ location.href= "http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1";
             <th>수정날짜</th>
             <th>추천</th>
             <th>작성자</th>
-            <th>제목</th>
+            <th>비고</th>
+            <th>내용</th>
           </tr>
         </thead>
         <tbody>
@@ -245,6 +247,15 @@ location.href= "http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1";
               <td>${reply.forPrintType1UpdateDate()}</td>
               <td>${reply.goodReactionPoint}</td>
               <td>${reply.extra__writerName}</td>
+              <td>
+              	<c:if test="${reply.extra__actorCanModify}">
+					<a class="btn btn-link" href="../reply/modify?id=${reply.id}">수정</a>
+				</c:if>
+				
+				<c:if test="${reply.extra__actorCanDelete}">
+					<a class="btn btn-link" onclick="if( confirm('정말 삭제하시겠습니까?') == false )return false;" href="../reply/doDelete?id=${reply.id}">삭제</a>
+				</c:if>
+              </td>
               <td>${reply.getForPtintBody() }</td>
             </tr>
           </c:forEach>
