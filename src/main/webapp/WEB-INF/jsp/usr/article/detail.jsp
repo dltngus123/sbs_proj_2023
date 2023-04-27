@@ -36,34 +36,6 @@ $(function() {
 })
 </script>
 
-<script>
-	//댓글 작성 관련
-	let ReplyWrite__submitFormDone = false;
-	function ReplyWrite__submitForm(form) {
-		if( ReplyWrite__submitFormDone) {
-			return;
-		}
-		
-		//좌우 공백 제거
-		form.body.value = form.body.value.trim();
-		
-		if(form.body.value.length == 0) {
-			alert('댓글을 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		if(form.body.value.length < 2) {
-			alert('댓글을 2자 이상 입력해주세요.');
-			form.body.focus();
-			return;
-		}
-		
-		ReplyWrite__submitFormDone = true;
-		form.submit();
-		
-	}
-</script>
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
@@ -165,6 +137,36 @@ $(function() {
   </div>
 </section>
 
+
+<script>
+	//댓글 작성 관련
+	let ReplyWrite__submitFormDone = false;
+	function ReplyWrite__submitForm(form) {
+		if( ReplyWrite__submitFormDone) {
+			return;
+		}
+		
+		//좌우 공백 제거
+		form.body.value = form.body.value.trim();
+		
+		if(form.body.value.length == 0) {
+			alert('댓글을 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		if(form.body.value.length < 2) {
+			alert('댓글을 2자 이상 입력해주세요.');
+			form.body.focus();
+			return;
+		}
+		
+		ReplyWrite__submitFormDone = true;
+		form.submit();
+		
+	}
+</script>
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<h1>댓글 작성</h1>
@@ -214,8 +216,40 @@ location.href= "http://localhost:8011/usr/article/doIncreaseHitCountRd?id=1";
  -->
  <section class="mt-5">
  	<div class="container mx-auto px-3">
- 		<h1>댓글 리스트(${repliesCount })</h1>
+ 		<h1>댓글 리스트(${replies.size() })</h1>
  		
+ 		 <table class="table table-fixed w-full mt-2">
+        <colgroup>   
+          <col width="50"/>
+          <col width="100"/>
+          <col width="100"/>
+          <col width="50"/>
+          <col width="150"/>
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th>작성날짜</th>
+            <th>수정날짜</th>
+            <th>추천</th>
+            <th>작성자</th>
+            <th>제목</th>
+          </tr>
+        </thead>
+        <tbody>
+          <c:forEach var="reply" items="${replies}">
+            <tr class="hover">
+              <th>${reply.id}</th>
+              <td>${reply.forPrintType1RegDate()}</td>
+              <td>${reply.forPrintType1UpdateDate()}</td>
+              <td>${reply.goodReactionPoint}</td>
+              <td>${reply.extra__writerName}</td>
+              <td>${reply.getForPtintBody() }</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
  	
  	</div>
  	
