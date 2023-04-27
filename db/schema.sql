@@ -313,4 +313,25 @@ relTypeCode = 'article',
 relId = 1,
 `body` = '댓글4';
 
+#explain 쿼리문 유효성 검사
+EXPLAIN SELECT R.*,
+M.nickname AS extra__writerName
+FROM reply AS R
+LEFT JOIN `member` AS M
+ON R.memberId = M.id
+WHERE R.relTypeCode = 'article'
+AND R.relId = 1
+
 SELECT * FROM reply;
+
+# 댓글  테이블 goodReactionPoint컬럼추가
+ALTER TABLE reply
+ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글  테이블 badReactionPoint컬럼추가
+ALTER TABLE reply
+ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+#인덱스 걸기(데이터 찾는?속도가 빨라짐)
+ALTER TABLE `reply` ADD INDEX (`relTypeCode`,`relId`);
+
