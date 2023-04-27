@@ -11,6 +11,14 @@ public class Ut {
 			return true;
 		}
 		
+		if (obj instanceof Integer) {
+			return ((int) obj) == 0;
+		}
+		
+		if (obj instanceof Long) {
+			return ((long) obj) == 0;
+		}
+		
 		//string 객체인지 아닌지 체크
 		if (obj instanceof String == false) {
 			return true;
@@ -19,7 +27,7 @@ public class Ut {
 		String str = (String) obj;
 		
 		//빈공간인지 아닌지 체크
-		return str.trim().length()==0;
+		return str.trim().length() == 0;
 	}
 
 	//몇개의 object가 들어올지몰라서 밑처럼 만들어주면 알아서 배열로 들어옴
