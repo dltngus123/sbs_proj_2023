@@ -19,14 +19,14 @@ public class ResultData<DT> {
 
 	@Getter
 	private Object data2;
-	
+
 	@Getter
 	// "id" id ,"article" article
 	private String data2Name;
 
 	// 생성자 만들어서 객체 생성못하게?
-	//	private ResultData() {
-	//	}
+	// private ResultData() {
+	// }
 
 	public static ResultData from(String rsultCode, String msg) {
 
