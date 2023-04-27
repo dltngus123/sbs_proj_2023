@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ReactionPointRepository {
-
 	@Select("""
 			SELECT IFNULL(SUM(RP.point), 0) AS s
 			FROM reactionPoint AS RP
@@ -14,7 +13,7 @@ public interface ReactionPointRepository {
 			AND RP.relId = #{relId}
 			AND RP.memberId = #{memberId}
 			""")
-	public int actorCanMakeReactionPoint(int memberId, String relTypeCode, int relId);
+	public int getSumReactionPointByMemberId(int relId, String relTypeCode, int memberId);
 
 	@Insert("""
 			INSERT INTO reactionPoint
@@ -23,7 +22,7 @@ public interface ReactionPointRepository {
 			relTypeCode = #{relTypeCode},
 			relId = #{relId},
 			memberId = #{memberId},
-			`point` = 1   
+			`point` = 1
 			""")
 	public void addGoodReactionPoint(int memberId, String relTypeCode, int relId);
 	
@@ -34,8 +33,7 @@ public interface ReactionPointRepository {
 			relTypeCode = #{relTypeCode},
 			relId = #{relId},
 			memberId = #{memberId},
-			`point` = -1   
+			`point` = -1
 			""")
 	public void addBadReactionPoint(int memberId, String relTypeCode, int relId);
-		
 }
