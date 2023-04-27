@@ -41,7 +41,7 @@
 			            </td>
 			          </tr>
 			           <tr>
-			            <th>수정</th>
+			            <th>작성</th>
 			            <td>
 			              <input class="btn btn-primary" type="submit" value="작성"/>
 			              <button class="btn btn-outline btn-primary" type="button" onclick="history.back();">뒤로가기</button>
