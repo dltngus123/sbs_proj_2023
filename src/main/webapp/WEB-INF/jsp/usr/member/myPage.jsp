@@ -6,6 +6,7 @@
 
 <section class="mt-5">
 	<div class="container mx-auto">
+		<div class="table-box-type-1">
 			<table>
 			<colgroup>
 				<col width="200"/>
@@ -34,12 +35,13 @@
 					<tr>
 						<th>비고</th>
 						<td>
-							<a class="btn btn-primary"  href="../member/checkPassword">회원정보수정</a>
+							<a class="btn btn-primary"  href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify') }">회원정보수정</a>
 							<button type="button" class="btn btn-outline btn-info" onclick="history.back();">뒤로가기</button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+		</div>
 	</div>
 </section>
 
