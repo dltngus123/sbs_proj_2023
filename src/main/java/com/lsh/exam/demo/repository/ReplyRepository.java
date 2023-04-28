@@ -57,4 +57,12 @@ public interface ReplyRepository {
 			""")
 	void deleteReply(int id);
 
+	@Update("""
+			UPDATE reply
+			SET updateDate = NOW(),
+			`body` = #{body}
+			WHERE id = #{id}
+			""")
+	void modifyReply(int id, String body);
+
 }
