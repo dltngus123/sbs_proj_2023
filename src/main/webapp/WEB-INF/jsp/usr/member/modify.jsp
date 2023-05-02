@@ -71,7 +71,7 @@
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 	    <form method="POST" action="../member/doModify" onsubmit="MemberModify__submit">
-	    	 <input type="hidden" name="loginId" value="${rq.loginedMember.loginId}"/>
+	    	 <input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey}"/>
 			    <div class="table-box-type-1">
 			      <table>
 			      <colgroup>
@@ -85,13 +85,13 @@
 			         <tr>
 			            <th>새 비밀번호</th>
 			            <td>
-			            	 <input type="text" class="input input-bordered" name="loginPw" placeholder="새 비밀 번호를 입력해주세요." />
+			            	 <input type="password" class="input input-bordered" name="loginPw" placeholder="새 비밀 번호를 입력해주세요." />
 			            </td>
 			          </tr>
 			            <tr>
 			            <th>새 비밀번호 확인</th>
 			            <td>
-			            	 <input type="text" class="input input-bordered" name="loginPwConfirm" placeholder="새 비밀 번호 확인을 입력해주세요." />
+			            	 <input type="password" class="input input-bordered" name="loginPwConfirm" placeholder="새 비밀 번호 확인을 입력해주세요." />
 			            </td>
 			          </tr>
 			            <tr>
