@@ -243,8 +243,8 @@ $(function() {
           <c:forEach var="reply" items="${replies}">
             <tr class="hover">
               <th>${reply.id}</th>
-              <td>${reply.forPrintTypeRegDate()}</td>
-              <td>${reply.forPrintTypeUpdateDate()}</td>
+              <td>${reply.forPrintType1RegDate()}</td>
+              <td>${reply.forPrintType1UpdateDate()}</td>
               <td>${reply.goodReactionPoint}</td>
               <td>${reply.extra__writerName}</td>
               <td>
@@ -256,7 +256,7 @@ $(function() {
 					href="../reply/doDelete?id=${reply.id}&replaceUri=${rq.encodedCurrentUri}">삭제</a>
 				</c:if>
               </td>
-              <td>${reply.forPrintBody}</td>
+              <td>${reply.getForPtintBody()}</td>
             </tr>
           </c:forEach>
         </tbody>

@@ -12,18 +12,17 @@ import com.lsh.exam.demo.interceptor.NeedLogoutInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-	@Autowired
 	// BeforeActionInterceptor 불러오기
-	BeforeActionInterceptor beforeActionInterceptor;
-
 	@Autowired
+	BeforeActionInterceptor beforeActionInterceptor;
+	
 	// NeedLoginInterceptor 불러오기
+	@Autowired
 	NeedLoginInterceptor needLoginInterceptor;
 	
-	@Autowired
 	// NeedLogoutInterceptor 불러오기
+	@Autowired
 	NeedLogoutInterceptor needLogoutInterceptor;
-
 
 	// 이 함수는 인터셉터를 적용하는 역할을 합니다.
 	@Override
@@ -33,7 +32,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/**");
 		ir.excludePathPatterns("/error");
 		ir.excludePathPatterns("/resource/**");
-
+		
 		ir = registry.addInterceptor(needLoginInterceptor);
 		ir.addPathPatterns("/usr/member/myPage");
 		ir.addPathPatterns("/usr/member/checkPassword");
@@ -41,19 +40,16 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/member/modify");
 		ir.addPathPatterns("/usr/member/doModify");
 		ir.addPathPatterns("/usr/member/doDelete");
-		
+		ir.addPathPatterns("/usr/reply/write");
+		ir.addPathPatterns("/usr/reply/doWrite");
 		ir.addPathPatterns("/usr/reply/modify");
 		ir.addPathPatterns("/usr/reply/doModify");
 		ir.addPathPatterns("/usr/reply/doDelete");
-		ir.addPathPatterns("/usr/reply/write");
-		ir.addPathPatterns("/usr/reply/doWrite");
-		
 		ir.addPathPatterns("/usr/article/write");
 		ir.addPathPatterns("/usr/article/doWrite");
 		ir.addPathPatterns("/usr/article/modify");
 		ir.addPathPatterns("/usr/article/doModify");
 		ir.addPathPatterns("/usr/article/doDelete");
-		
 		ir.addPathPatterns("/usr/reactionPoint/doGoodReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doCancelGoodReaction");
@@ -69,5 +65,4 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/member/findLoginPw");
 		ir.addPathPatterns("/usr/member/doFindLoginPw");
 	}
-
 }
