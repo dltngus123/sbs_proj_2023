@@ -66,14 +66,14 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public String doLogout() {
+	public String doLogout(@RequestParam(defaultValue= "/") String afterLoginUri) {
 		if ( !rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
 		
 		rq.logout();
 		
-		return rq.jsReplace("로그아웃 되었습니다.", "/");
+		return rq.jsReplace("로그아웃 되었습니다.", afterLoginUri);
 	}
 	
 	@RequestMapping("/usr/member/login")
@@ -83,7 +83,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue ="/") String afterLoginUri) {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue= "/") String afterLoginUri) {
 		if ( rq.isLogined() ) {
 			return rq.jsHistoryBack("이미 로그인되었습니다.");
 		}
@@ -145,14 +145,13 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/modify")
 	public String showModify(String memberModifyAuthKey) {
-		
-		if( Ut.empty(memberModifyAuthKey) ) {
+		if ( Ut.empty(memberModifyAuthKey) ) {
 			return rq.historyBackJsOnview("memberModifyAuthKey가 필요합니다.");
 		}
 		
 		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
 		
-		if (checkMemberModifyAuthKeyRd.isFail()) {
+		if ( checkMemberModifyAuthKeyRd.isFail() ) {
 			return rq.historyBackJsOnview(checkMemberModifyAuthKeyRd.getMsg());
 		}
 		
@@ -162,14 +161,13 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
 	public String doModify(String memberModifyAuthKey, String loginPw, String name, String nickname, String email, String cellphoneNo) {
-		
-		if( Ut.empty(memberModifyAuthKey) ) {
+		if ( Ut.empty(memberModifyAuthKey) ) {
 			return rq.historyBackJsOnview("memberModifyAuthKey가 필요합니다.");
 		}
 		
 		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(), memberModifyAuthKey);
 		
-		if (checkMemberModifyAuthKeyRd.isFail()) {
+		if ( checkMemberModifyAuthKeyRd.isFail() ) {
 			return rq.historyBackJsOnview(checkMemberModifyAuthKeyRd.getMsg());
 		}
 		

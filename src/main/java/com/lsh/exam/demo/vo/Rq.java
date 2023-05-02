@@ -1,6 +1,7 @@
 package com.lsh.exam.demo.vo;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -16,9 +17,7 @@ import lombok.Getter;
 
 @Component
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
-//자동으로 의존성 주입해줌
 public class Rq {
-	
 	@Getter
 	private boolean isLogined;
 	@Getter
@@ -29,19 +28,20 @@ public class Rq {
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
 	private HttpSession session;
+	private Map<String, String> paramMap; 
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
 		
+		paramMap = Ut.getParamMap(req);
+		
 		this.session = req.getSession();
 		
 		boolean isLogined = false;
-		
 		int loginedMemberId = 0;
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			
+		if ( session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 			loginedMember = memberService.getMemberById(loginedMemberId);
@@ -73,18 +73,15 @@ public class Rq {
 	}
 	
 	public void println(String str) {
-		
 		print(str + "\n");
 	}
 
 	public void login(Member member) {
 		session.setAttribute("loginedMemberId", member.getId());
-		
 	}
 
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
-		
 	}
 	
 	public String historyBackJsOnview(String msg) {
@@ -94,20 +91,18 @@ public class Rq {
 	}
 
 	public String jsHistoryBack(String msg) {
-		
 		return Ut.jsHistoryBack(msg);
 	}
 	
 	public String jsReplace(String msg, String uri) {
-		
-		return Ut.jsReplace(msg,uri);
+		return Ut.jsReplace(msg, uri);
 	}
 	
 	public String getCurrentUri() {
-		String currentUri = req.getRequestURI(); 	// /usr/article
-		String queryString = req.getQueryString();	// id = 1
+		String currentUri = req.getRequestURI();
+		String queryString = req.getQueryString();
 		
-		if(queryString != null && queryString.length() > 0) {
+		if (queryString != null && queryString.length() > 0 ) {
 			currentUri += "?" + queryString;
 		}
 		
@@ -115,18 +110,51 @@ public class Rq {
 	}
 	
 	public String getEncodedCurrentUri() {
-		
 		return Ut.getUriEncoded(getCurrentUri());
 	}
 
-	//Rq 객체가 자연스럽게 생성되도록 유도하는 역할
-	//지우면 안됨,편의를 위해 BeforeActionInterceptor에서 꼭 호출 해줘야함.
-	public void initOnBeforeActionInterceptor() {}
+	// 이 메서드는 Rq객체가 자연스럽게 생성되도록 유도하는 역할을 한다.
+	// 지우면 안되고,
+	// 편의를 위해 BeforeActionInterceptor에서 꼭 호출해줘야 한다.
+	public void initOnBeforeActionInterceptor() {
+	}
 
 	public void printReplaceJs(String msg, String uri) {
 		resp.setContentType("text/html; charset=UTF-8");
 		print(Ut.jsReplace(msg, uri));
 	}
+
+	public String getLoginUri() {
+		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+	}
+
+	private String getAfterLoginUri() {
+		String requestUri = req.getRequestURI(); 
+		
+		// 로그인 후 돌아가면 안되는 페이지 URL 들을 적으시면 됩니다.
+		switch (requestUri) {
+		case "/usr/member/login":
+		case "/usr/member/join":
+		case "/usr/member/findLoginId":
+		case "/usr/member/findLoginPw":
+			return Ut.getUriEncoded(Ut.getStrAttr(paramMap, "afterLoginUri", ""));
+		}
+		
+		return getEncodedCurrentUri();
+	}
 	
-	
+	public String getLogoutUri() {
+		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+	}
+
+	private String getAfterLogoutUri() {
+		String requestUri = req.getRequestURI(); 
+		
+//		switch (requestUri) {
+//		case "/usr/article/write":
+//			return "";
+//		}
+		
+		return getEncodedCurrentUri();
+	}
 }

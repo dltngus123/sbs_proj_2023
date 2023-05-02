@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html lang="ko" class="light" data-theme="valentine">
+<html lang="ko" class="light" data-theme="light">
 <head>
 	<meta charset="UTF-8">
 	<title>${pageTitle}</title>
@@ -21,7 +21,7 @@
 	
 	<!-- 사이트 공통 CSS -->
 	<link rel="stylesheet" href="/resource/common.css" />
-	<!-- 사이트 공통 JS defer은 제일 나중에 실행하라고 하는거임 footer에 넣을때는 빼도됨-->
+	<!-- 사이트 공통 JS -->
 	<script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
@@ -39,7 +39,7 @@
             <span>홈</span>
           </a>
         </li>
-          <li>
+        <li>
           <a href="/usr/article/write" class="h-full flex items-center px-3 hover:underline">
             <span>작성</span>
           </a>
@@ -54,21 +54,21 @@
             <span>자유 게시판</span>
           </a>
         </li>
-        <c:if test="${!rq.isLogined() }">
-	        <li>
-	          <a href="/usr/member/login" class="h-full flex items-center px-3 hover:underline">
+        <c:if test="${!rq.logined}">
+        	<li>
+	          <a href="${rq.loginUri}" class="h-full flex items-center px-3 hover:underline">
 	            <span>로그인</span>
 	          </a>
 	        </li>
         </c:if>
-         <c:if test="${rq.isLogined() }">
-         	<li>
+        <c:if test="${rq.logined}">
+        	<li>
 	          <a href="/usr/member/myPage" class="h-full flex items-center px-3 hover:underline">
-	            <span>${rq.loginedMember.nickname }'s Profile</span>
+	            <span>${rq.loginedMember.nickname}'s Profile</span>
 	          </a>
 	        </li>
-	        <li>
-	          <a href="/usr/member/doLogout" class="h-full flex items-center px-3 hover:underline">
+        	<li>
+	          <a href="${rq.logoutUri}" class="h-full flex items-center px-3 hover:underline">
 	            <span>로그아웃</span>
 	          </a>
 	        </li>

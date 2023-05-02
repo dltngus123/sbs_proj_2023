@@ -8,26 +8,24 @@ import com.lsh.exam.demo.vo.Rq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@Component
+
 //로그인 담당 Interceptor
-public class NeedLoginInterceptor implements HandlerInterceptor{
+@Component
+public class NeedLoginInterceptor implements HandlerInterceptor {
 	private Rq rq;
-	
+
 	public NeedLoginInterceptor(Rq rq) {
 		this.rq = rq;
 	}
+	
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-	
-		if (!rq.isLogined()) {
-			String afterLoginUri = rq.getEncodedCurrentUri();
-			rq.printReplaceJs("로그인 후 이용 해주세요.", "../member/login?afterLoginUri=" + afterLoginUri);
+		if (!rq.isLogined() ) {
+			String afterLoginUri = rq.getLoginUri();
+			rq.printReplaceJs("로그인 후 이용해주세요.", "../member/login?afterLoginUri=" + afterLoginUri);
 			return false;
 		}
 		
-		//System.out.println("로그인 필요!");
-
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}
-
 }
