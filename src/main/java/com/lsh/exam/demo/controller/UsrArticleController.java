@@ -41,7 +41,11 @@ public class UsrArticleController {
 	// 액션 메서드 시작
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(int boardId, String title, String body, String replaceUri) {
+	public String doWrite(Integer boardId, String title, String body, String replaceUri) {
+		if (Ut.empty(boardId)) {
+			return rq.jsHistoryBack("게시판을 선택해주세요.");
+		}
+		
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
@@ -99,21 +103,21 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 		model.addAttribute("article", article);
 		
-		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article" , id);
+		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
 		int repliesCount = replies.size();
 		model.addAttribute("replies", replies);
-
-		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(),
-				"article", id);
+		
+		ResultData actorCanMakeReactionPointRd = reactionPointService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), "article", id);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionPointRd.isSuccess());
-
-		if (actorCanMakeReactionPointRd.getResultCode().equals("F-2")) {
+		
+		if ( actorCanMakeReactionPointRd.getResultCode().equals("F-2") ) {
 			int sumReactionPointByMemberId = (int) actorCanMakeReactionPointRd.getData1();
-
-			if (sumReactionPointByMemberId > 0) {
+			
+			if ( sumReactionPointByMemberId > 0 ) {
 				model.addAttribute("actorCanCancelGoodReaction", true);
-			} else {
+			}
+			else {
 				model.addAttribute("actorCanCancelBadReaction", true);
 			}
 		}
