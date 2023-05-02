@@ -129,9 +129,14 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doCheckPassword")
 	@ResponseBody
 	public String doCheckPassword(String loginPw, String replaceUri) {
-		
 		if ( rq.getLoginedMember().getLoginPw().equals(loginPw) == false ) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
+		}
+		
+		if ( replaceUri.equals("../member/modify") ) {
+			String memberModifyAuthKey = memberService.genMemberModifyAuthKey(rq.getLoginedMemberId());
+			
+			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
 		}
 		
 		return rq.jsReplace("", replaceUri);
@@ -145,29 +150,28 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
 	public String doModify(String loginPw, String name, String nickname, String email, String cellphoneNo) {
-
 		if ( Ut.empty(loginPw) ) {
 			loginPw = null;
 		}
 		
 		if ( Ut.empty(name) ) {
-			return rq.jsHistoryBack("이름을 입력해주세요.");
+			return rq.jsHistoryBack("이름(을)를 입력해주세요.");
 		}
 		
 		if ( Ut.empty(nickname) ) {
-			return rq.jsHistoryBack("닉네임을 입력해주세요.");
+			return rq.jsHistoryBack("닉네임(을)를 입력해주세요.");
 		}
 		
 		if ( Ut.empty(email) ) {
-			return rq.jsHistoryBack("이메일을 입력해주세요.");
+			return rq.jsHistoryBack("이메일(을)를 입력해주세요.");
 		}
 		
 		if ( Ut.empty(cellphoneNo) ) {
-			return rq.jsHistoryBack("폰번호을 입력해주세요.");
+			return rq.jsHistoryBack("휴대전화번호(을)를 입력해주세요.");
 		}
 		
 		ResultData modifyRd = memberService.modify(rq.getLoginedMemberId(), loginPw, name, nickname, email, cellphoneNo);
 		
-		return rq.jsReplace(modifyRd.getMsg(),"/");
+		return rq.jsReplace(modifyRd.getMsg(), "/");
 	}
 }
